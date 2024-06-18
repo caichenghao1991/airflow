@@ -449,12 +449,9 @@ class SchedulerJobRunner(BaseJobRunner, LoggingMixin):
 
                 if task_instance.pool_slots > pool_total:
                     self.log.warning(
-                        "Not executing %s. Requested pool slots (%s) are greater than "
-                        "total pool slots: '%s' for pool: %s.",
-                        task_instance,
-                        task_instance.pool_slots,
-                        pool_total,
-                        pool_name,
+                        "Dag: %s --- Task: %s --- Run: %s is not scheduling since there are %s open "
+                        "slots in pool %s", task_instance.dag_id, task_instance.task_id,
+                        task_instance.run_id, open_slots, pool_name
                     )
 
                     pool_num_starving_tasks[pool_name] += 1
